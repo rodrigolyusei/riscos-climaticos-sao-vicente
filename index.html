@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mapa interativo de riscos climáticos de São Vicente com busca por bairros e dados em GeoJSON.">
+  <title>Mapa de Riscos Climáticos de São Vicente</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="Logo do projeto" class="brand__logo">
+      <div>
+        <p class="brand__eyebrow">Observatório de Justiça Climática</p>
+        <h1>Riscos Climáticos de São Vicente</h1>
+      </div>
+    </div>
+
+    <form class="searchbar" id="search-form" autocomplete="off">
+      <label class="sr-only" for="search-input">Buscar bairro</label>
+      <input id="search-input" name="search-input" type="search" placeholder="Buscar bairro ou referência" aria-label="Buscar bairro ou referência">
+      <button type="submit">Buscar</button>
+    </form>
+  </header>
+
+  <main class="map-shell">
+    <section id="map" aria-label="Mapa interativo de riscos climáticos"></section>
+    <aside class="legend-card" aria-label="Legenda do mapa">
+      <h2>Legenda</h2>
+      <ul>
+        <li><span class="legend-swatch legend-swatch--muito-alto"></span> Muito alto</li>
+        <li><span class="legend-swatch legend-swatch--alto"></span> Alto</li>
+        <li><span class="legend-swatch legend-swatch--medio"></span> Médio</li>
+        <li><span class="legend-swatch legend-swatch--baixo"></span> Baixo</li>
+      </ul>
+      <p>Os dados são carregados de um arquivo GeoJSON local e podem ser substituídos pelo mapeamento oficial dos bairros.</p>
+    </aside>
+    <div class="status-pill" id="status-pill">Carregando dados do mapa...</div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="assets/js/map.js"></script>
+</body>
+</html>

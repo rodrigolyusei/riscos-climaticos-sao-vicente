@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Mapa de riscos climáticos">
+  <defs>
+    <linearGradient id="g" x1="18" y1="16" x2="110" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4dd0e1"/>
+      <stop offset="1" stop-color="#7f8cff"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="108" height="108" rx="28" fill="#08111f" stroke="url(#g)" stroke-width="6"/>
+  <path d="M28 88l19-19 14 13 24-24 15 15" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="43" cy="49" r="9" fill="#f29f05"/>
+</svg>

@@ -1,0 +1,78 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "bairro": "Centro",
+        "risco": "Médio",
+        "observacao": "Área de alta circulação e sensível a alagamentos pontuais."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-46.3986, -23.9588],
+          [-46.3910, -23.9588],
+          [-46.3910, -23.9641],
+          [-46.3986, -23.9641],
+          [-46.3986, -23.9588]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bairro": "Itararé",
+        "risco": "Alto",
+        "observacao": "Trecho ilustrativo próximo à faixa costeira, com atenção para ressacas e erosão.",
+        "descricao": "Área priorizada para adaptação costeira."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-46.3828, -23.9730],
+          [-46.3764, -23.9730],
+          [-46.3764, -23.9782],
+          [-46.3828, -23.9782],
+          [-46.3828, -23.9730]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bairro": "Japuí",
+        "risco": "Muito alto",
+        "observacao": "Exemplo com maior vulnerabilidade a inundações e movimentos de massa."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-46.3638, -23.9806],
+          [-46.3578, -23.9806],
+          [-46.3578, -23.9858],
+          [-46.3638, -23.9858],
+          [-46.3638, -23.9806]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bairro": "Vila Margarida",
+        "risco": "Baixo",
+        "observacao": "Faixa demonstrativa com menor criticidade no recorte apresentado."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-46.4128, -23.9498],
+          [-46.4062, -23.9498],
+          [-46.4062, -23.9550],
+          [-46.4128, -23.9550],
+          [-46.4128, -23.9498]
+        ]]
+      }
+    }
+  ]
+}
