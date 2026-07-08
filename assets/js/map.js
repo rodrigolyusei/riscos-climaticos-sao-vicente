@@ -172,7 +172,7 @@ function searchFeature(term) {
 async function loadGeoJson() {
   try {
     const response = await fetch(
-      "assets/data/riscos_deslizamento_SV_DefesaCivil.geojson",
+      "assets/data/risco_deslizamento_SV_DefesaCivil.geojson",
       { cache: "no-store" },
     );
     if (!response.ok) {
