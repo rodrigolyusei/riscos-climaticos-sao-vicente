@@ -1,12 +1,13 @@
 const map = L.map("map", {
   zoomControl: true,
-  preferCanvas: true
+  preferCanvas: true,
 }).setView([-23.9636, -46.3914], 13);
 
 L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
   subdomains: "abcd",
-  maxZoom: 20
+  maxZoom: 20,
 }).addTo(map);
 
 const statusPill = document.getElementById("status-pill");
@@ -18,7 +19,7 @@ const riskPalette = {
   alto: "#d94841",
   medio: "#f29f05",
   baixo: "#2f9e44",
-  default: "#4dd0e1"
+  default: "#4dd0e1",
 };
 
 let geojsonLayer = null;
@@ -35,16 +36,17 @@ function normalizeText(value) {
 function getRiskValue(properties) {
   return normalizeText(
     properties?.risco ||
-    properties?.classificacao ||
-    properties?.nivel ||
-    properties?.risk ||
-    properties?.categoria
+      properties?.classificacao ||
+      properties?.nivel ||
+      properties?.risk ||
+      properties?.categoria,
   );
 }
 
 function getStrokeColor(properties) {
   const risk = getRiskValue(properties);
-  if (risk.includes("muito") && risk.includes("alto")) return riskPalette.muito_alto;
+  if (risk.includes("muito") && risk.includes("alto"))
+    return riskPalette.muito_alto;
   if (risk.includes("alto")) return riskPalette.alto;
   if (risk.includes("medio")) return riskPalette.medio;
   if (risk.includes("baixo")) return riskPalette.baixo;
@@ -52,9 +54,21 @@ function getStrokeColor(properties) {
 }
 
 function buildPopupContent(properties) {
-  const bairro = properties?.bairro || properties?.nome || properties?.name || "Área sem nome";
-  const risco = properties?.risco || properties?.classificacao || properties?.nivel || "Não informado";
-  const observacao = properties?.observacao || properties?.descricao || properties?.impacto || "Sem observações adicionais.";
+  const bairro =
+    properties?.bairro ||
+    properties?.nome ||
+    properties?.name ||
+    "Área sem nome";
+  const risco =
+    properties?.risco ||
+    properties?.classificacao ||
+    properties?.nivel ||
+    "Não informado";
+  const observacao =
+    properties?.observacao ||
+    properties?.descricao ||
+    properties?.impacto ||
+    "Sem observações adicionais.";
 
   return `
     <article>
@@ -80,7 +94,7 @@ function highlightFeature(layer) {
   layer.setStyle({
     weight: 4,
     fillOpacity: 0.8,
-    opacity: 1
+    opacity: 1,
   });
   layer.bringToFront();
 }
@@ -97,7 +111,7 @@ function styleFeature(feature) {
     opacity: 1,
     fillColor: color,
     fillOpacity: 0.45,
-    lineJoin: "round"
+    lineJoin: "round",
   };
 }
 
@@ -107,7 +121,10 @@ function onEachFeature(feature, layer) {
   layer.on({
     mouseover: () => highlightFeature(layer),
     mouseout: () => resetHighlight(layer),
-    click: () => updateStatus(`Selecionado: ${properties.bairro || properties.nome || properties.name || "área do mapa"}`)
+    click: () =>
+      updateStatus(
+        `Selecionado: ${properties.bairro || properties.nome || properties.name || "área do mapa"}`,
+      ),
   });
 }
 
@@ -115,8 +132,12 @@ function indexFeatures(features) {
   featuresIndex = features
     .map((feature) => ({
       feature,
-      label: normalizeText(feature?.properties?.bairro || feature?.properties?.nome || feature?.properties?.name),
-      searchText: normalizeText(JSON.stringify(feature?.properties || {}))
+      label: normalizeText(
+        feature?.properties?.bairro ||
+          feature?.properties?.nome ||
+          feature?.properties?.name,
+      ),
+      searchText: normalizeText(JSON.stringify(feature?.properties || {})),
     }))
     .filter((item) => item.label || item.searchText);
 }
@@ -128,23 +149,32 @@ function searchFeature(term) {
     return;
   }
 
-  const match = featuresIndex.find((item) => item.label.includes(query) || item.searchText.includes(query));
+  const match = featuresIndex.find(
+    (item) => item.label.includes(query) || item.searchText.includes(query),
+  );
   if (!match) {
     updateStatus(`Nenhum resultado para "${term}".`);
     return;
   }
 
-  const targetLayer = geojsonLayer.getLayers().find((layer) => layer.feature === match.feature);
+  const targetLayer = geojsonLayer
+    .getLayers()
+    .find((layer) => layer.feature === match.feature);
   if (targetLayer) {
     targetLayer.openPopup();
     map.fitBounds(targetLayer.getBounds().pad(0.2));
-    updateStatus(`Resultado encontrado: ${match.feature.properties?.bairro || match.feature.properties?.nome || match.feature.properties?.name}`);
+    updateStatus(
+      `Resultado encontrado: ${match.feature.properties?.bairro || match.feature.properties?.nome || match.feature.properties?.name}`,
+    );
   }
 }
 
 async function loadGeoJson() {
   try {
-    const response = await fetch("assets/data/bairros_riscos.geojson", { cache: "no-store" });
+    const response = await fetch(
+      "assets/data/riscos_deslizamento_SV_DefesaCivil.geojson",
+      { cache: "no-store" },
+    );
     if (!response.ok) {
       throw new Error(`Falha ao carregar o GeoJSON (${response.status})`);
     }
@@ -158,7 +188,7 @@ async function loadGeoJson() {
 
     geojsonLayer = L.geoJSON(geojson, {
       style: styleFeature,
-      onEachFeature
+      onEachFeature,
     }).addTo(map);
 
     indexFeatures(features);
