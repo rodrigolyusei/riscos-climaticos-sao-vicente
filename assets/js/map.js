@@ -171,10 +171,9 @@ function searchFeature(term) {
 
 async function loadGeoJson() {
   try {
-    const response = await fetch(
-      "assets/data/risco_deslizamento_SV_DefesaCivil.geojson",
-      { cache: "no-store" },
-    );
+    const response = await fetch("assets/data/risco_deslizamento.geojson", {
+      cache: "no-store",
+    });
     if (!response.ok) {
       throw new Error(`Falha ao carregar o GeoJSON (${response.status})`);
     }
