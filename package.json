@@ -1,0 +1,14 @@
+{
+  "name": "sao-vicente-riscos-climaticos",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "npx http-server . -p 8000"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/leaflet": "^1.9.21",
+    "typescript": "^5.4.0"
+  }
+}
