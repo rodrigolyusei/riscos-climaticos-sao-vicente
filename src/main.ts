@@ -11,6 +11,8 @@ if (!mapEl) {
 const map: L.Map = L.map(mapEl as HTMLElement, {
   zoomControl: true,
   preferCanvas: true,
+  minZoom: 2,
+  maxZoom: 20,
 }).setView([-23.9636, -46.3914] as L.LatLngExpression, 13);
 
 L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
