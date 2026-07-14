@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "npx http-server . -p 8000"
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.16",
     "@types/leaflet": "^1.9.21",
-    "typescript": "^5.4.0"
+    "@types/node": "^26.1.1",
+    "typescript": "^5.4.0",
+    "vite": "^8.1.4"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }

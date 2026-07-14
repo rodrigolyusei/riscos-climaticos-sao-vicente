@@ -4,8 +4,7 @@
     "module": "ES2020",
     "moduleResolution": "bundler",
     "allowUmdGlobalAccess": true,
-    "outDir": "./build",
-    "rootDir": "./assets/ts",
+    "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,5 +12,5 @@
     "noEmitOnError": false,
     "noImplicitAny": false
   },
-  "include": ["assets/ts/**/*"]
+  "include": ["src/**/*"]
 }

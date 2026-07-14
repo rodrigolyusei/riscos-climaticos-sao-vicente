@@ -1,11 +1,12 @@
 import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "./assets/css/style.css";
 
 const mapEl = document.getElementById("map");
 if (!mapEl) {
   console.error("Map element with id 'map' not found.");
   throw new Error("Map element not found");
 }
-("");
 
 const map: L.Map = L.map(mapEl as HTMLElement, {
   zoomControl: true,
@@ -215,7 +216,6 @@ function searchFeature(term: string): void {
 
   if (targetLayer) {
     targetLayer.openPopup();
-    // handle polygon/multipolygon bounds vs markers/points
     if (typeof (targetLayer as any).getBounds === "function") {
       (map as any).fitBounds((targetLayer as any).getBounds().pad(0.2));
     } else if (typeof (targetLayer as any).getLatLng === "function") {
@@ -231,10 +231,9 @@ function searchFeature(term: string): void {
 
 async function loadGeoJson(): Promise<void> {
   try {
-    const response = await fetch(
-      "assets/data/risco_deslizamento_SV_DefesaCivil.geojson",
-      { cache: "no-store" },
-    );
+    const response = await fetch("/data/risco_deslizamento.geojson", {
+      cache: "no-store",
+    });
     if (!response.ok) {
       throw new Error(`Falha ao carregar o GeoJSON (${response.status})`);
     }
@@ -264,7 +263,6 @@ async function loadGeoJson(): Promise<void> {
       updateStatus("GeoJSON carregado, mas sem feições para exibir.");
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
     updateStatus("Não foi possível carregar o GeoJSON local.");
   }
