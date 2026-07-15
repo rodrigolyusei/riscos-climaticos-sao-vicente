@@ -24,11 +24,11 @@ export type IndexItem = {
 };
 
 export const riskPalette: Record<string, string> = {
-  muito_alto: "#8a1538",
-  alto: "#d94841",
-  medio: "#f29f05",
-  baixo: "#2f9e44",
-  default: "#4dd0e1",
+  muito_alto: "#fa003f",
+  alto: "#e87722",
+  medio: "#00a3e0",
+  baixo: "#007a4a",
+  default: "#000000",
 };
 
 export function normalizeText(value: unknown): string {
