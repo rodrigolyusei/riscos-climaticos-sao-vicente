@@ -17,64 +17,7 @@
     />
   </head>
   <body>
-    <header class="topbar">
-      <div class="brand">
-        <img src="/img/logo-1.png" alt="Logo do projeto" class="brand__logo" />
-        <div>
-          <p class="brand__eyebrow">Observatório de Justiça Climática</p>
-          <h1>Riscos Climáticos de São Vicente</h1>
-        </div>
-      </div>
-
-      <form class="searchbar" id="search-form" autocomplete="off">
-        <label class="sr-only" for="search-input">Buscar bairro</label>
-        <input
-          id="search-input"
-          name="search-input"
-          type="search"
-          placeholder="Buscar bairro ou referência"
-          aria-label="Buscar bairro ou referência"
-        />
-        <button type="submit">Buscar</button>
-      </form>
-
-      <nav class="site-nav" aria-label="Páginas do site">
-        <a href="./index.html" aria-current="page">Mapa</a>
-        <a href="./referencias.html">Referências</a>
-        <a href="./definicoes.html">Definições</a>
-      </nav>
-    </header>
-
-    <main class="map-shell">
-      <section
-        id="map"
-        aria-label="Mapa interativo de riscos climáticos"
-      ></section>
-      <aside class="legend-card" aria-label="Legenda do mapa">
-        <h2>Legenda</h2>
-        <ul>
-          <li>
-            <span class="legend-swatch legend-swatch--muito-alto"></span> Muito
-            alto
-          </li>
-          <li><span class="legend-swatch legend-swatch--alto"></span> Alto</li>
-          <li>
-            <span class="legend-swatch legend-swatch--medio"></span> Médio
-          </li>
-          <li>
-            <span class="legend-swatch legend-swatch--baixo"></span> Baixo
-          </li>
-        </ul>
-        <p>
-          Os dados são carregados de um arquivo GeoJSON local e podem ser
-          substituídos pelo mapeamento oficial dos bairros.
-        </p>
-      </aside>
-      <div class="status-pill" id="status-pill">
-        Carregando dados do mapa...
-      </div>
-    </main>
-
-    <script type="module" src="./src/main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

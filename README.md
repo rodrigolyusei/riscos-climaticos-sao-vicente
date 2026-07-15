@@ -13,9 +13,10 @@ O sistema faz parte do projeto integrador sobre Observatório de Justiça Climá
 
 ### Desenvolvimento
 
-- TypeScript
+- TypeScript + React
 - Leaflet (biblioteca para mapa interativo)
 - GeoJSON (formato baseado em json para dados espaciais)
+- React Router (rotas client-side)
 - Vite (ferramenta para build e desenvolvimento local)
 
 ## Execução
@@ -35,9 +36,12 @@ npm run build
 
 Abra `http://127.0.0.1:5173/` no navegador durante o desenvolvimento.
 
-## Estrutura TypeScript
+## Estrutura
 
-- `src/main.ts` é a fonte editável.
-- `index.html` é a página principal do mapa.
-- `referencias.html` e `definicoes.html` são as páginas adicionais.
-- `vite.config.ts` define o build multi-page em `build`.
+- `src/main.tsx` — entry point
+- `src/App.tsx` — rotas e layout compartilhado
+- `src/pages/Mapa.tsx` — página do mapa
+- `src/pages/Referencias.tsx` — página de referências
+- `src/pages/Definicoes.tsx` — página de definições
+- `src/types.ts` — tipos compartilhados e funções auxiliares
+- `vite.config.ts` — configuração do Vite com plugin React

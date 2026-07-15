@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "ES2020",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "allowUmdGlobalAccess": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
     "noEmit": true,
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmitOnError": false,
-    "noImplicitAny": false
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }
