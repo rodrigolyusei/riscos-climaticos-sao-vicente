@@ -17,10 +17,7 @@ function highlightFeature(layer: L.Path): void {
   (layer as any).bringToFront();
 }
 
-function resetHighlight(
-  layer: L.Path,
-  geojsonLayer: L.GeoJSON | null,
-): void {
+function resetHighlight(layer: L.Path, geojsonLayer: L.GeoJSON | null): void {
   geojsonLayer?.resetStyle(layer as any);
 }
 
@@ -80,7 +77,13 @@ export function Mapa() {
       const layer = L.geoJSON(geojson as any, {
         style: styleFeature,
         onEachFeature: (feature, layer) =>
-          onEachFeature(feature, layer, map, geojsonLayerRef.current, setStatus),
+          onEachFeature(
+            feature,
+            layer,
+            map,
+            geojsonLayerRef.current,
+            setStatus,
+          ),
       }).addTo(map);
 
       geojsonLayerRef.current = layer;
@@ -150,9 +153,11 @@ export function Mapa() {
     }
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
-    const input = event.currentTarget.elements.namedItem("search-input") as HTMLInputElement;
+    const input = event.currentTarget.elements.namedItem(
+      "search-input",
+    ) as HTMLInputElement;
     if (input) searchFeature(input.value);
   }
 
@@ -160,7 +165,12 @@ export function Mapa() {
     <main className="map-shell">
       <Map onMapReady={handleMapReady} />
       <Legend />
-      <form className="searchbar" id="search-form" autoComplete="off" onSubmit={handleSubmit}>
+      <form
+        className="searchbar"
+        id="search-form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <label className="sr-only" htmlFor="search-input">
           Buscar bairro
         </label>

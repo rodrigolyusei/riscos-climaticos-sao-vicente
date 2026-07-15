@@ -14,11 +14,13 @@ export function Map({ onMapReady }: MapProps) {
     if (!containerRef.current || mapRef.current) return;
 
     const map = L.map(containerRef.current, {
-      zoomControl: true,
+      zoomControl: false,
       preferCanvas: true,
       minZoom: 2,
       maxZoom: 20,
     }).setView([-23.9636, -46.3914] as L.LatLngExpression, 13);
+
+    L.control.zoom({ position: "topright" }).addTo(map);
 
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -39,5 +41,11 @@ export function Map({ onMapReady }: MapProps) {
     };
   }, []);
 
-  return <div ref={containerRef} id="map" aria-label="Mapa interativo de riscos climáticos" />;
+  return (
+    <div
+      ref={containerRef}
+      id="map"
+      aria-label="Mapa interativo de riscos climáticos"
+    />
+  );
 }
