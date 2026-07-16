@@ -1,5 +1,3 @@
-import { NavLink } from "react-router-dom";
-
 export function Header() {
   return (
     <header className="topbar">
@@ -15,12 +13,10 @@ export function Header() {
         </div>
       </div>
 
-      <nav className="site-nav" aria-label="Páginas do site">
-        <NavLink to="/" end>
-          Mapa
-        </NavLink>
-        <NavLink to="/referencias">Referências</NavLink>
-        <NavLink to="/definicoes">Definições</NavLink>
+      <nav className="site-nav" aria-label="Seções do site">
+        <a href="#mapa">Mapa</a>
+        <a href="#acoes">Ações da Defensoria</a>
+        <a href="#timeline">Linha do tempo</a>
       </nav>
     </header>
   );

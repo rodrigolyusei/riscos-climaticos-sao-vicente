@@ -162,7 +162,7 @@ export function Mapa() {
   }
 
   return (
-    <main className="map-shell">
+    <div className="map-card">
       <Map onMapReady={handleMapReady} />
       <Legend />
       <form
@@ -186,6 +186,6 @@ export function Mapa() {
       <div className="status-pill" id="status-pill">
         {status}
       </div>
-    </main>
+    </div>
   );
 }

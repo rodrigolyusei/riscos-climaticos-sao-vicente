@@ -1,18 +1,23 @@
-import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Mapa } from "./pages/Mapa";
-import { Referencias } from "./pages/Referencias";
-import { Definicoes } from "./pages/Definicoes";
+import { AcoesDefensoria } from "./pages/AcoesDefensoria";
+import { LinhaDoTempo } from "./pages/LinhaDoTempo";
 
 export function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<Mapa />} />
-        <Route path="/referencias" element={<Referencias />} />
-        <Route path="/definicoes" element={<Definicoes />} />
-      </Routes>
+      <main className="scroll-container">
+        <section id="mapa" className="section">
+          <Mapa />
+        </section>
+        <section id="acoes" className="section">
+          <AcoesDefensoria />
+        </section>
+        <section id="timeline" className="section">
+          <LinhaDoTempo />
+        </section>
+      </main>
     </>
   );
 }
