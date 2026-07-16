@@ -28,13 +28,13 @@ npm install
 npm run dev
 ```
 
-Para gerar a versão de produção:
+Abra `http://localhost:5173/` no navegador durante o desenvolvimento.
+
+Para gerar a versão de produção (que fica em dist/):
 
 ```bash
 npm run build
 ```
-
-Abra `http://127.0.0.1:5173/` no navegador durante o desenvolvimento.
 
 ## Estrutura
 

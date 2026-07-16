@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build"
+    "build": "tsc && vite build"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.16",
