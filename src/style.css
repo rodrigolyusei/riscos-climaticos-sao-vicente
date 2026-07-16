@@ -2,22 +2,14 @@
   color-scheme: light;
   --bg: #f9f3f0;
   --panel: rgba(249, 243, 240, 0.92);
-  --panel-strong: #ffffff;
   --line: rgba(26, 30, 44, 0.1);
   --text: #1a1e2c;
   --muted: #5a5f72;
   --blue: #00a3e0;
   --green: #007a4a;
   --orange: #e87722;
+  --red: #fa003f;
   --shadow: 0 18px 50px rgba(26, 30, 44, 0.1);
-  --muito-alto: #fa003f;
-  --alto: #e87722;
-  --medio: #00a3e0;
-  --baixo: #007a4a;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html {
@@ -68,7 +60,6 @@ body {
 .brand__logo {
   width: 2.5rem;
   height: 2.5rem;
-  flex: 0 0 auto;
 }
 
 .brand__eyebrow {
@@ -127,7 +118,7 @@ body {
 }
 
 #mapa {
-  height: 70vh;
+  height: 85vh;
 }
 
 /* ── MAP CARD ───────────────────────────────────── */
@@ -251,21 +242,20 @@ body {
   width: 0.85rem;
   height: 0.85rem;
   border-radius: 50%;
-  flex: 0 0 auto;
   border: 1px solid rgba(26, 30, 44, 0.15);
 }
 
 .legend-swatch--muito-alto {
-  background: var(--muito-alto);
+  background: var(--red);
 }
 .legend-swatch--alto {
-  background: var(--alto);
+  background: var(--orange);
 }
 .legend-swatch--medio {
-  background: var(--medio);
+  background: var(--blue);
 }
 .legend-swatch--baixo {
-  background: var(--baixo);
+  background: var(--green);
 }
 
 .status-pill {
@@ -414,7 +404,6 @@ body {
 }
 
 .carousel__arrow {
-  flex: 0 0 auto;
   width: 2.75rem;
   height: 2.75rem;
   border: 1px solid var(--line);

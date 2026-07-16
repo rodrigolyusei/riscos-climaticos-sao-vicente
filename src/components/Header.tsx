@@ -12,7 +12,6 @@ export function Header() {
           <h1>Riscos Climáticos</h1>
         </div>
       </div>
-
       <nav className="site-nav" aria-label="Seções do site">
         <a href="#mapa">Mapa</a>
         <a href="#acoes">Ações da Defensoria</a>
