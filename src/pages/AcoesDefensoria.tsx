@@ -48,8 +48,8 @@ export function AcoesDefensoria() {
 
   return (
     <div className="acoes-wrapper">
-      <p className="brand__eyebrow">Ações da Defensoria</p>
-      <h2>Notícias e iniciativas</h2>
+      <p className="brand__eyebrow">Notícias e iniciativas</p>
+      <h2>Ações da Defensoria</h2>
 
       <div className="carousel">
         <button
@@ -64,7 +64,9 @@ export function AcoesDefensoria() {
         <div className="carousel__viewport">
           <div
             className="carousel__track"
-            style={{ transform: `translateX(-${index * (100 / acoes.length)}%)` }}
+            style={{
+              transform: `translateX(-${index * (100 / acoes.length)}%)`,
+            }}
           >
             {acoes.map((acao) => (
               <article key={acao.title} className="acao-card">
@@ -83,7 +85,7 @@ export function AcoesDefensoria() {
         <button
           className="carousel__arrow carousel__arrow--right"
           onClick={next}
-          disabled={index === acoes.length - 1}
+          disabled={index === acoes.length - 3}
           aria-label="Próximo"
         >
           &#9654;

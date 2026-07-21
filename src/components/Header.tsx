@@ -9,13 +9,13 @@ export function Header() {
         />
         <div>
           <p className="brand__eyebrow">Observatório de Justiça Climática</p>
-          <h1>Riscos Climáticos</h1>
+          <h1>Radar Cidadão</h1>
         </div>
       </div>
       <nav className="site-nav" aria-label="Seções do site">
         <a href="#mapa">Mapa</a>
-        <a href="#acoes">Ações da Defensoria</a>
-        <a href="#timeline">Linha do tempo</a>
+        <a href="#acoes">Ações</a>
+        <a href="#timeline">Conheça o histórico</a>
       </nav>
     </header>
   );
