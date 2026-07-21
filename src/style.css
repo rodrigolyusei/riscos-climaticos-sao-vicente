@@ -311,6 +311,172 @@ body {
   font-size: 0.92rem;
 }
 
+/* ── MAPA DE RISCOS ────────────────────────────── */
+
+.map-panel {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.map-wrap {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  background: #e8e3df;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  background: #e8e3df;
+}
+
+.map-toolbar {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 800;
+}
+
+.map-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: min(26rem, calc(100vw - 5rem));
+  border: 1px solid rgba(26, 30, 44, 0.2);
+  border-radius: 999px;
+  padding: 0.15rem 0.25rem 0.15rem 1rem;
+  background: var(--bg);
+}
+
+.map-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.map-search__button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.58rem 0.85rem;
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.map-search__button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.map-search__error {
+  margin: 0.5rem 0 0;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.map-legend-card {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 450;
+  width: min(13rem, calc(100vw - 5rem));
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 0.8rem 1rem;
+  box-shadow: var(--shadow);
+  background: rgba(249, 243, 240, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.map-legend-list,
+.popup-risk-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.map-legend-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.map-legend-list__item,
+.popup-risk-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.map-legend-list__item {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.map-legend-list__swatch,
+.popup-risk-list__dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.map-status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  background: rgba(249, 243, 240, 0.96);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.map-status--err {
+  color: #b91c1c;
+}
+
+.popup-risco {
+  min-width: 12.5rem;
+}
+
+.popup-bairro {
+  margin: 0 0 0.55rem;
+  color: var(--green);
+  font-size: 1rem;
+}
+
+.popup-risk-list {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.popup-risk-list__item {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
 /* ── AÇÕES DA DEFENSORIA / CAROUSEL ─────────────── */
 
 .acoes-wrapper {

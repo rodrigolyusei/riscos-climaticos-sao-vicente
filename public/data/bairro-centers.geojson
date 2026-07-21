@@ -1,0 +1,631 @@
+{
+  "type": "FeatureCollection",
+  "source_file": "public/data/export.geojson",
+  "generated_from": "Polygon centroids plus existing point features",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aldeia do Paranapuã",
+        "source": null,
+        "origin_id": "node/6397204680",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.382658,
+          -23.9839102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boa Vista",
+        "source": null,
+        "origin_id": "node/615766611",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.3711852,
+          -23.9692022
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cidade Nautica",
+        "source": null,
+        "origin_id": "node/5910869521",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4142456,
+          -23.9558663
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Condomínio Original",
+        "source": null,
+        "origin_id": "way/1191443203",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.390856314455,
+          -23.969454537314
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Conjunto Habitacional São Vicente \"H\"",
+        "source": null,
+        "origin_id": "way/845226314",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.393196438673,
+          -23.959102477467
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Conjunto Residêncial América do Sul",
+        "source": null,
+        "origin_id": "way/756594048",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.380440286362,
+          -23.966511656108
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Conjunto Residencial Humaita",
+        "source": null,
+        "origin_id": "way/624095732",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.457295168263,
+          -23.950270400506
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Esplanada dos Barreiros",
+        "source": null,
+        "origin_id": "node/5910863965",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4117297,
+          -23.9562609
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Japuí",
+        "source": null,
+        "origin_id": "node/1982426190",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.3939044,
+          -23.9875483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jardim Rio Branco",
+        "source": null,
+        "origin_id": "node/1963820466",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4723073,
+          -23.9805355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jardim Rio Negro",
+        "source": "IBGE",
+        "origin_id": "node/6987108081",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4628554,
+          -23.9853704
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Núcleo Charme",
+        "source": "IBGE",
+        "origin_id": "way/253716351",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.389227723151,
+          -23.94893705391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oceanos - São Vicente",
+        "source": null,
+        "origin_id": "way/845226326",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.395750335355,
+          -23.942990312542
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parque Bitaru",
+        "source": null,
+        "origin_id": "node/6388276021",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.3942622,
+          -23.9704264
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parque Continental",
+        "source": null,
+        "origin_id": "way/624095735",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.458830045941,
+          -23.955065177455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parque das Bandeiras",
+        "source": null,
+        "origin_id": "node/2013109765",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4882555,
+          -23.9869982
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Quarentenário",
+        "source": null,
+        "origin_id": "node/1963820476",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4554866,
+          -23.9792602
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Samaritá",
+        "source": null,
+        "origin_id": "node/1963820506",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4735207,
+          -23.9906824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Bugre",
+        "source": null,
+        "origin_id": "relation/10889554",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.385798545702,
+          -23.946806521978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Cachetas",
+        "source": null,
+        "origin_id": "relation/7092923",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.403515445023,
+          -23.945321047444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Canal do Meio",
+        "source": "IBGE",
+        "origin_id": "way/253716706",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.411645552044,
+          -23.969561730822
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila CDHU",
+        "source": "IBGE",
+        "origin_id": "way/253716672",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.407944333989,
+          -23.972922720974
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Comeca",
+        "source": "IBGE",
+        "origin_id": "way/253716806",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.399865736191,
+          -23.953472678799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Dique do Fátima",
+        "source": "IBGE",
+        "origin_id": "way/253716853",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.404382991539,
+          -23.945817820178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Eduardo Dias Coelho",
+        "source": "IBGE",
+        "origin_id": "way/253716871",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.412560361324,
+          -23.958803932724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Feliz",
+        "source": "IBGE",
+        "origin_id": "node/7004023068",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4481783,
+          -23.9570285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Fepasa",
+        "source": "IBGE",
+        "origin_id": "way/253716936",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.402535443694,
+          -23.961811566273
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Miau",
+        "source": null,
+        "origin_id": "relation/10889552",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.38388128953,
+          -23.950138289669
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Morro do Itararé",
+        "source": "IBGE",
+        "origin_id": "way/253718221",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.359823800694,
+          -23.96231088769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Nova Mariana",
+        "source": "IBGE",
+        "origin_id": "node/7004023056",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4489186,
+          -23.9545578
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Nova São Vicente",
+        "source": "IBGE",
+        "origin_id": "way/253718371",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.48991512488,
+          -23.989521599444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Pompeba",
+        "source": null,
+        "origin_id": "relation/7092924",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.40395694248,
+          -23.94397087192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Ponte Nova",
+        "source": "IBGE",
+        "origin_id": "node/6987108033",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4501095,
+          -23.9821552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Quarentenário Particular",
+        "source": "IBGE",
+        "origin_id": "node/6987108010",
+        "generated_from": "original_point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.4614392,
+          -23.9815278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Rio da Avó",
+        "source": "IBGE",
+        "origin_id": "way/253719034",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.399586548307,
+          -23.968829601123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Rua São Vicente",
+        "source": null,
+        "origin_id": "way/1410924136",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.408433105071,
+          -23.96518611313
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Saquaré",
+        "source": "IBGE",
+        "origin_id": "way/253719192",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.40334102835,
+          -23.972118765764
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Senhora Catarina de Morais",
+        "source": "IBGE",
+        "origin_id": "way/253719230",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.392751080567,
+          -23.955482930962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vila Yolanda",
+        "source": "IBGE",
+        "origin_id": "way/253719401",
+        "generated_from": "polygon_centroid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.486366058513,
+          -23.991338404612
+        ]
+      }
+    }
+  ]
+}
