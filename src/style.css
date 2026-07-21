@@ -336,6 +336,11 @@ body {
   background: #e8e3df;
 }
 
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 500;
+}
+
 .map-toolbar {
   position: absolute;
   top: 1rem;
