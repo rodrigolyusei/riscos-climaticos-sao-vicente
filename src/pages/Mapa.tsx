@@ -75,7 +75,6 @@ export function Mapa() {
       }
 
       const layer = L.geoJSON(geojson as any, {
-        style: styleFeature,
         onEachFeature: (feature, layer) =>
           onEachFeature(
             feature,
@@ -84,6 +83,14 @@ export function Mapa() {
             geojsonLayerRef.current,
             setStatus,
           ),
+        pointToLayer: (_feature, latlng) =>
+          L.circleMarker(latlng, {
+            radius: 10,
+            fillColor: "#fa003f",
+            fillOpacity: 0.3,
+            color: "#c40032",
+            weight: 1.5,
+          }),
       }).addTo(map);
 
       geojsonLayerRef.current = layer;
