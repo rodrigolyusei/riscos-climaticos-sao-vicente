@@ -35,7 +35,7 @@ const acoes = [
   },
 ];
 
-export function AcoesDefensoria() {
+export function AcoesDefesaCivil() {
   const [index, setIndex] = useState(0);
 
   function prev() {
@@ -49,7 +49,7 @@ export function AcoesDefensoria() {
   return (
     <div className="acoes-wrapper">
       <p className="brand__eyebrow">Notícias e iniciativas</p>
-      <h2>Ações da Defensoria</h2>
+      <h2>Ações da Defesa Civil</h2>
 
       <div className="carousel">
         <button

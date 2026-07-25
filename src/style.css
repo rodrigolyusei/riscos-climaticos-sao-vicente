@@ -125,7 +125,6 @@ body {
 
 .map-card {
   position: relative;
-  z-index: 0;
   flex: 1;
   min-height: 0;
   display: flex;
@@ -148,7 +147,6 @@ body {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  z-index: 800;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -196,7 +194,6 @@ body {
 .legend-card,
 .status-pill {
   position: absolute;
-  z-index: 800;
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
@@ -345,7 +342,7 @@ body {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  z-index: 800;
+  z-index: 500;
 }
 
 .map-search {
@@ -397,7 +394,7 @@ body {
   position: absolute;
   right: 1rem;
   bottom: 1rem;
-  z-index: 450;
+  z-index: 500;
   width: min(13rem, calc(100vw - 5rem));
   border: 1px solid var(--line);
   border-radius: 1rem;
@@ -443,7 +440,6 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1000;
   transform: translate(-50%, -50%);
   border: 1px solid var(--line);
   border-radius: 0.75rem;
@@ -482,7 +478,7 @@ body {
   font-family: inherit;
 }
 
-/* ── AÇÕES DA DEFENSORIA / CAROUSEL ─────────────── */
+/* ── AÇÕES DA DEFESA CIVIL / CAROUSEL ─────────────── */
 
 .acoes-wrapper {
   display: flex;
@@ -658,7 +654,6 @@ body {
   border-radius: 50%;
   background: var(--green);
   border: 3px solid var(--bg);
-  z-index: 1;
   transform: translate(-50%, -50%);
 }
 
