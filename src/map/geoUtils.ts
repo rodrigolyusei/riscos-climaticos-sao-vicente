@@ -2,12 +2,11 @@ import type { Feature, Position } from "geojson";
 import type { PathOptions } from "leaflet";
 import { getColor } from "./config";
 import type {
-  BairroFeature,
-  Nivel,
-  InundacaoProperties,
-  Risk,
-  InundacaoCollection,
   DeslizamentoCollection,
+  InundacaoCollection,
+  InundacaoProperties,
+  Nivel,
+  Risk,
 } from "./types";
 
 const BAIRRO_RISK_RADIUS_METERS = 200;

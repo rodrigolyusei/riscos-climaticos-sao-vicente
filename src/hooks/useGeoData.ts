@@ -4,8 +4,8 @@ import type {
   BairroCollection,
   DeslizamentoCollection,
   GeoDataState,
-  LimiteFeature,
   InundacaoCollection,
+  LimiteFeature,
 } from "../map/types";
 
 const BASE = import.meta.env.BASE_URL;

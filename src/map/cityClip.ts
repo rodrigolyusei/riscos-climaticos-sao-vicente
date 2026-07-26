@@ -1,5 +1,5 @@
-import L from "leaflet";
 import type { MultiPolygon, Polygon, Position } from "geojson";
+import L from "leaflet";
 import type { LimiteFeature } from "./types";
 
 type Ring = Position[];

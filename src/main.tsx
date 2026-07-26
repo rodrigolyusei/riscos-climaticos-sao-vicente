@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Header } from "./components/Header";
-import { Mapa } from "./pages/Mapa";
 import { AcoesDefesaCivil } from "./pages/AcoesDefensoria";
 import { LinhaDoTempo } from "./pages/LinhaDoTempo";
+import { Mapa } from "./pages/Mapa";
 import "./style.css";
 
 createRoot(document.getElementById("root")!).render(
