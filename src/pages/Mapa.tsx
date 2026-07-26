@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useGeoData } from "../hooks/useGeoData";
@@ -13,10 +13,10 @@ import {
 import {
   distanceMeters,
   neighborhoodRiskPopupHtml,
-  risksNearNeighborhood,
+  polygonWithinRadius,
   styleFor,
 } from "../map/geoUtils";
-import type { InundacaoFeature } from "../map/types";
+import type { Risk } from "../map/types";
 
 const BAIRRO_RISK_RADIUS_METERS = 200;
 const DESLIZAMENTO_AREA_RADIUS_METERS = 70;
@@ -44,10 +44,10 @@ export function Mapa() {
 
   useEffect(() => {
     if (
-      !limite ||
-      !inundacoes ||
-      !deslizamentos ||
       !bairros ||
+      !limite ||
+      !deslizamentos ||
+      !inundacoes ||
       !containerRef.current ||
       mapRef.current
     ) {
@@ -95,25 +95,41 @@ export function Mapa() {
       const [lng, lat] = coordinates;
       L.circle([lat, lng], {
         radius: DESLIZAMENTO_AREA_RADIUS_METERS,
-        color: getColor("Alto"),
+        color: "#fa003f",
         weight: 2,
         opacity: 0.95,
-        fillColor: getColor("Alto"),
+        fillColor: "#fa003f",
         fillOpacity: 0.55,
         interactive: false,
       }).addTo(map);
     });
 
-    bairros.features.forEach((feature) => {
-      const coordinates = feature.geometry?.coordinates;
-      const name = feature.properties?.name?.trim();
+    bairros.features.forEach((bairro) => {
+      const coordinates = bairro.geometry?.coordinates;
+      const name = bairro.properties?.name?.trim();
       if (!coordinates || coordinates.length < 2 || !name) return;
 
-      const nearbyRisks: InundacaoFeature[] = risksNearNeighborhood(
-        feature,
-        inundacoes,
-        BAIRRO_RISK_RADIUS_METERS,
-      );
+      const nearbyRisks: Risk[] = inundacoes.features
+        .filter((inundacao) =>
+          inundacao.geometry.type === "Polygon"
+            ? polygonWithinRadius(
+                bairro.geometry.coordinates,
+                inundacao.geometry.coordinates,
+                BAIRRO_RISK_RADIUS_METERS,
+              )
+            : inundacao.geometry.coordinates.some((polygon) =>
+                polygonWithinRadius(
+                  bairro.geometry.coordinates,
+                  polygon,
+                  BAIRRO_RISK_RADIUS_METERS,
+                ),
+              ),
+        )
+        .map((inundacao) => ({
+          tipo: "Inundação",
+          nivel: inundacao.properties.nivel,
+        }));
+
       const hasNearbyDeslizamento = deslizamentos.features.some(
         (deslizamento) => {
           const point = deslizamento.geometry?.coordinates;
@@ -128,19 +144,14 @@ export function Mapa() {
 
       if (hasNearbyDeslizamento) {
         nearbyRisks.push({
-          type: "Feature",
-          properties: {
-            bairro: name,
-            nivel: "Alto",
-            fonte: "riscos-deslizamento.geojson",
-          },
-          geometry: { type: "Polygon", coordinates: [] },
+          tipo: "Deslizamento",
+          nivel: "Alto",
         });
       }
 
       const [lng, lat] = coordinates;
       const marker = L.marker([lat, lng], { icon: bairroMarkerIcon })
-        .bindPopup(neighborhoodRiskPopupHtml(feature, nearbyRisks))
+        .bindPopup(neighborhoodRiskPopupHtml(bairro, nearbyRisks))
         .addTo(map);
       neighborhoodMarkersRef.current.set(
         name.toLocaleLowerCase("pt-BR"),
@@ -156,7 +167,7 @@ export function Mapa() {
     };
   }, [bairros, deslizamentos, limite, inundacoes]);
 
-  async function handleSearch(event: FormEvent<HTMLFormElement>) {
+  async function handleSearch(event: React.SubmitEvent) {
     event.preventDefault();
     const query = searchQuery.trim();
     const map = mapRef.current;

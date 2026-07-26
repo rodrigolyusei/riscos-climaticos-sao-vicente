@@ -1,13 +1,7 @@
 import type { Feature, Position } from "geojson";
 import type { PathOptions } from "leaflet";
 import { getColor } from "./config";
-import type {
-  BairroFeature,
-  Nivel,
-  InundacaoCollection,
-  InundacaoFeature,
-  InundacaoProperties,
-} from "./types";
+import type { BairroFeature, Nivel, InundacaoProperties, Risk } from "./types";
 
 const NIVEL: Record<Nivel, number> = {
   Baixo: 1,
@@ -94,7 +88,7 @@ function pointToSegmentDistanceMeters(
   );
 }
 
-function polygonWithinRadius(
+export function polygonWithinRadius(
   center: Position,
   rings: Position[][],
   radiusMeters: number,
@@ -113,42 +107,30 @@ function polygonWithinRadius(
   );
 }
 
-export function risksNearNeighborhood(
-  centerFeature: BairroFeature,
-  riscos: InundacaoCollection,
-  radiusMeters: number,
-): InundacaoFeature[] {
-  const center = centerFeature.geometry.coordinates;
-  return riscos.features.filter((feature) =>
-    feature.geometry.type === "Polygon"
-      ? polygonWithinRadius(center, feature.geometry.coordinates, radiusMeters)
-      : feature.geometry.coordinates.some((polygon) =>
-          polygonWithinRadius(center, polygon, radiusMeters),
-        ),
-  );
-}
-
 export function neighborhoodRiskPopupHtml(
   centerFeature: BairroFeature,
-  nearbyRisks: InundacaoFeature[],
+  nearbyRisks: Risk[],
 ): string {
   const name = centerFeature.properties.name;
   if (!nearbyRisks.length) {
     return `<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${name}</h3><ul class="popup-risk-list"><li class="popup-risk-list__item"><span>Sem risco identificado</span></li></ul></div>`;
   }
 
-  const highestRisk = nearbyRisks.reduce<{
-    nivel: Nivel;
-    properties: InundacaoProperties;
-  } | null>((best, risk) => {
-    if (!best || NIVEL[risk.properties.nivel] > NIVEL[best.nivel]) {
-      return { nivel: risk.properties.nivel, properties: risk.properties };
+  const highestRiskByType = new Map<string, Risk>();
+  nearbyRisks.forEach((risk) => {
+    const current = highestRiskByType.get(risk.tipo);
+    if (!current || NIVEL[risk.nivel] > NIVEL[current.nivel]) {
+      highestRiskByType.set(risk.tipo, risk);
     }
-    return best;
-  }, null)!;
+  });
 
-  const color = getColor(highestRisk.nivel);
-  const items = `<li class="popup-risk-list__item"><span class="popup-risk-list__dot" style="background:${color}"></span><span>Risco de inundação — ${highestRisk.nivel}</span></li>`;
+  const items = Array.from(highestRiskByType.values())
+    .sort((a, b) => NIVEL[b.nivel] - NIVEL[a.nivel])
+    .map((risk) => {
+      const color = getColor(risk.nivel);
+      return `<li class="popup-risk-list__item"><span class="popup-risk-list__dot" style="background:${color}"></span><span>${risk.tipo} — ${risk.nivel}</span></li>`;
+    })
+    .join("");
 
   return `<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${name}</h3><ul class="popup-risk-list">${items}</ul></div>`;
 }

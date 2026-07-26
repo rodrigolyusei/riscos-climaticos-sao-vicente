@@ -32,17 +32,10 @@ export function buildMaskGeometry(
     WORLD_RING,
     ensureCounterClockwise(outerRing),
   ];
-  return limite.geometry.type === "Polygon"
-    ? {
-        type: "Polygon",
-        coordinates: maskPolygon(limite.geometry.coordinates[0]),
-      }
-    : {
-        type: "MultiPolygon",
-        coordinates: limite.geometry.coordinates.map((polygon) =>
-          maskPolygon(polygon[0]),
-        ),
-      };
+  return {
+    type: "Polygon",
+    coordinates: maskPolygon(limite.geometry.coordinates[0]),
+  };
 }
 
 export function addCityClip(map: L.Map, limite: LimiteFeature): L.LatLngBounds {
