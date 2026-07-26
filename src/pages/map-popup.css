@@ -1,0 +1,107 @@
+.popup-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.6rem;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.popup-card__title svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: 0 0 auto;
+  fill: #d32f2f;
+}
+
+.popup-card__risks {
+  margin: 0 0 0.85rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.popup-risk__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+}
+
+.popup-risk__item svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.popup-risk__item span {
+  color: #1f2937;
+}
+
+.popup-risk__item--baixo,
+.popup-risk__item--none {
+  color: #2e7d32;
+}
+
+.popup-risk__item--medio {
+  color: #ef6c00;
+}
+
+.popup-risk__item--alto {
+  color: #c62828;
+}
+
+.popup-guide__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  color: #1f2937;
+}
+
+.popup-guide {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.popup-guide__section {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.popup-guide__label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  align-self: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.popup-guide__label--inundacao {
+  color: #2e7d32;
+}
+
+.popup-guide__label--deslizamento {
+  color: #795548;
+}
+
+.popup-guide__tips {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: #374151;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+}
+
+.leaflet-popup-content {
+  margin: 1rem 1.25rem;
+  line-height: 1.4;
+}

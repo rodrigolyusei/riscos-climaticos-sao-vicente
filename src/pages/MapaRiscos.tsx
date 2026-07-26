@@ -1,5 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "./map-legend.css";
+import "./map-popup.css";
 import { useEffect, useRef, useState } from "react";
 import { useGeoData } from "../hooks/useGeoData";
 import { addCityClip } from "../map/cityClip";
@@ -36,6 +38,11 @@ export function MapaRiscos() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
+  const [showInundacao, setShowInundacao] = useState(true);
+  const [showDeslizamento, setShowDeslizamento] = useState(true);
+
+  const inundacaoLayerRef = useRef<L.LayerGroup | null>(null);
+  const deslizamentoLayerRef = useRef<L.LayerGroup | null>(null);
 
   const { bairros, limite, deslizamentos, inundacoes, loading, error } =
     useGeoData();
@@ -71,6 +78,7 @@ export function MapaRiscos() {
     map.setMaxBounds(cityBounds.pad(0.2));
     map.fitBounds(cityBounds, { padding: [20, 20] });
 
+    const inundacaoLayer = L.layerGroup();
     inundacoes.features.forEach((feature) => {
       const layer = L.geoJSON(feature, {
         style: styleFor,
@@ -85,23 +93,30 @@ export function MapaRiscos() {
           });
         },
       });
-      map.addLayer(layer);
+      inundacaoLayer.addLayer(layer);
     });
+    inundacaoLayer.addTo(map);
+    inundacaoLayerRef.current = inundacaoLayer;
 
+    const deslizamentoLayer = L.layerGroup();
     deslizamentos.features.forEach((feature) => {
       const coordinates = feature.geometry?.coordinates;
       if (!coordinates || coordinates.length < 2) return;
       const [lng, lat] = coordinates;
-      L.circle([lat, lng], {
-        radius: DESLIZAMENTO_AREA_RADIUS_METERS,
-        color: "#fa003f",
-        weight: 2,
-        opacity: 0.95,
-        fillColor: "#fa003f",
-        fillOpacity: 0.55,
-        interactive: false,
-      }).addTo(map);
+      deslizamentoLayer.addLayer(
+        L.circle([lat, lng], {
+          radius: DESLIZAMENTO_AREA_RADIUS_METERS,
+          color: "#fa003f",
+          weight: 2,
+          opacity: 0.95,
+          fillColor: "#fa003f",
+          fillOpacity: 0.55,
+          interactive: false,
+        }),
+      );
     });
+    deslizamentoLayer.addTo(map);
+    deslizamentoLayerRef.current = deslizamentoLayer;
 
     bairros.features.forEach((bairro) => {
       const coordinates = bairro.geometry?.coordinates;
@@ -118,6 +133,7 @@ export function MapaRiscos() {
       const marker = L.marker([lat, lng], { icon: bairroMarkerIcon })
         .bindPopup(
           neighborhoodRiskPopupHtml(bairro.properties.name, nearbyRisks),
+          { maxWidth: 400, minWidth: 280 },
         )
         .addTo(map);
       neighborhoodMarkersRef.current.set(
@@ -129,10 +145,34 @@ export function MapaRiscos() {
     return () => {
       neighborhoodMarkersRef.current.clear();
       searchMarkerRef.current = null;
+      inundacaoLayerRef.current = null;
+      deslizamentoLayerRef.current = null;
       map.remove();
       mapRef.current = null;
     };
   }, [bairros, deslizamentos, limite, inundacoes]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const inundacaoLayer = inundacaoLayerRef.current;
+    if (!map || !inundacaoLayer) return;
+    if (showInundacao) {
+      inundacaoLayer.addTo(map);
+    } else {
+      map.removeLayer(inundacaoLayer);
+    }
+  }, [showInundacao]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const deslizamentoLayer = deslizamentoLayerRef.current;
+    if (!map || !deslizamentoLayer) return;
+    if (showDeslizamento) {
+      deslizamentoLayer.addTo(map);
+    } else {
+      map.removeLayer(deslizamentoLayer);
+    }
+  }, [showDeslizamento]);
 
   async function handleSearch(event: React.SubmitEvent) {
     if (!deslizamentos || !inundacoes) {
@@ -192,7 +232,10 @@ export function MapaRiscos() {
       searchMarkerRef.current?.remove();
       searchMarkerRef.current = L.marker([lat, lng]).addTo(map);
       searchMarkerRef.current
-        .bindPopup(neighborhoodRiskPopupHtml(results[0].name, nearbyRisks))
+        .bindPopup(neighborhoodRiskPopupHtml(results[0].name, nearbyRisks), {
+          maxWidth: 400,
+          minWidth: 280,
+        })
         .openPopup();
     } catch (searchFailure) {
       setSearchError(
@@ -233,18 +276,41 @@ export function MapaRiscos() {
 
       <div className="map-wrap">
         <div ref={containerRef} className="map" />
-        <aside className="map-legend-card" aria-label="Níveis de enchente">
-          <ul className="map-legend-list">
-            {(["Baixo", "Médio", "Alto"] as const).map((nivel) => (
-              <li className="map-legend-list__item" key={nivel}>
-                <span
-                  className="map-legend-list__swatch"
-                  style={{ backgroundColor: getColor(nivel) }}
-                />
-                {nivel}
-              </li>
-            ))}
-          </ul>
+        <aside className="map-legend-card" aria-label="Camadas de risco">
+          <label className="map-legend-toggle">
+            <input
+              type="checkbox"
+              checked={showInundacao}
+              onChange={(event) => setShowInundacao(event.target.checked)}
+            />
+            Inundação
+          </label>
+          {showInundacao && (
+            <ul className="map-legend-list">
+              {(["Baixo", "Médio", "Alto"] as const).map((nivel) => (
+                <li className="map-legend-list__item" key={nivel}>
+                  <span
+                    className="map-legend-list__swatch"
+                    style={{ backgroundColor: getColor(nivel) }}
+                  />
+                  {nivel}
+                </li>
+              ))}
+            </ul>
+          )}
+          <label className="map-legend-toggle">
+            <input
+              type="checkbox"
+              checked={showDeslizamento}
+              onChange={(event) => setShowDeslizamento(event.target.checked)}
+            />
+            {showDeslizamento &&
+            <span
+              className="map-legend-list__swatch"
+              style={{ backgroundColor: "#fa003f" }}
+            />}
+            Deslizamento
+          </label>
         </aside>
         {loading && <div className="map-status">Carregando dados…</div>}
         {error && (
