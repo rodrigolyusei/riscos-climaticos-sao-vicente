@@ -31,7 +31,7 @@ const eventos = [
 
 export function HistoricoDesastres() {
   return (
-    <div className="timeline-wrapper">
+    <div className="section-wrapper">
       <p className="eyebrow">Linha do tempo</p>
       <h2>Marcos históricos</h2>
 

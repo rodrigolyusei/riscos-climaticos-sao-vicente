@@ -47,7 +47,7 @@ export function AcoesDefesaCivil() {
   }
 
   return (
-    <div className="acoes-wrapper">
+    <div className="section-wrapper">
       <p className="eyebrow">Notícias e iniciativas</p>
       <h2>Ações da Defesa Civil</h2>
 

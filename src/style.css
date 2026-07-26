@@ -103,8 +103,176 @@ body {
 }
 
 .section {
-  padding: clamp(1.5rem, 3vw, 3rem);
+  padding: 2rem;
   display: flex;
+}
+
+.section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.section-wrapper h2 {
+  margin: 0 0 3rem;
+  font-size: 2rem;
+  color: var(--orange);
+}
+
+/* ──── NOTIFICACOES ─────────────────────────────── */
+
+.notificacoes {
+  padding: 2rem 0;
+}
+
+.notificacoes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--green);
+  color: #fff;
+  width: 100%;
+  padding: 2rem 0;
+  gap: 1.5rem;
+}
+
+.notificacoes-wrapper h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.notificacoes__desc {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.notificacoes__form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.notificacoes__field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+}
+
+.notificacoes__field input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  min-width: 180px;
+}
+
+.notificacoes__field input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.notificacoes__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.notificacoes__icon--whatsapp {
+  color: #fff;
+}
+
+.notificacoes__icon--email {
+  color: #fff;
+}
+
+.notificacoes__submit {
+  background: #fff;
+  color: var(--green);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.notificacoes__submit:hover {
+  opacity: 0.85;
+}
+
+.notificacoes__modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.notificacoes__modal {
+  background: #fff;
+  color: var(--text);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.notificacoes__modal h3 {
+  margin: 0 0 0.75rem;
+  color: var(--green);
+}
+
+.notificacoes__modal p {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.notificacoes__modal-btn {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notificacoes__modal-btn:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .notificacoes__form {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .notificacoes__field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .notificacoes__field input {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 /* ──── MAPA ─────────────────────────────────────── */
@@ -342,20 +510,6 @@ body {
 
 /* ── AÇÕES DA DEFESA CIVIL / CAROUSEL ─────────────── */
 
-.acoes-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.acoes-wrapper h2 {
-  margin: 0 0 1.5rem;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: var(--orange);
-}
-
 .carousel {
   display: flex;
   align-items: center;
@@ -463,20 +617,6 @@ body {
 }
 
 /* ── LINHA DO TEMPO ─────────────────────────────── */
-
-.timeline-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20rem;
-}
-
-.timeline-wrapper h2 {
-  margin: 0 0 3rem;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: var(--orange);
-}
 
 .timeline-scroll {
   width: 100%;
