@@ -6,52 +6,48 @@ import type {
   Polygon,
 } from "geojson";
 
-export type Tipo = "Enchente" | "Deslizamento" | "Queimada";
-export type Nivel = "Baixo" | "Médio" | "Alto" | "Muito Alto";
+export type Nivel = "Baixo" | "Médio" | "Alto";
 
-export interface RiskProperties {
-  tipo: Tipo;
+export interface InundacaoProperties {
   bairro: string;
   nivel: Nivel;
-  descricao: string;
   fonte: string;
-  data: string;
 }
 
-export type RiskGeometry = Polygon | MultiPolygon;
-export type RiskFeature = Feature<RiskGeometry, RiskProperties>;
-export type RiskCollection = FeatureCollection<RiskGeometry, RiskProperties>;
-
-export type LimiteFeature = Feature<RiskGeometry, { name?: string }>;
-
-export interface DeslizamentoPointProperties {
-  Name?: string;
-  descriptio?: string | null;
-  timestamp?: string | null;
-  begin?: string | null;
-  end?: string | null;
-  altitudeMo?: number | null;
-  tessellate?: number | null;
-  extrude?: number | null;
-  visibility?: number | null;
-  drawOrder?: number | null;
-  icon?: string | null;
-}
-
-export type DeslizamentoPointCollection = FeatureCollection<
-  Point,
-  DeslizamentoPointProperties
+export type InundacaoGeometry = Polygon | MultiPolygon;
+export type InundacaoFeature = Feature<InundacaoGeometry, InundacaoProperties>;
+export type InundacaoCollection = FeatureCollection<
+  InundacaoGeometry,
+  InundacaoProperties
 >;
 
-export interface BairroCenterProperties {
+export type LimiteFeature = Feature<InundacaoGeometry, { name?: string }>;
+
+export interface DeslizamentoProperties {
+  Name?: string;
+  descriptio?: string | null;
+}
+
+export type DeslizamentoCollection = FeatureCollection<
+  Point,
+  DeslizamentoProperties
+>;
+
+export interface BairroProperties {
   name: string;
   source?: string | null;
   origin_id?: string | null;
   generated_from?: "original_point" | "polygon_centroid" | string;
 }
 
-export type BairroCenterFeature = Feature<Point, BairroCenterProperties>;
-export type BairroCenterCollection = FeatureCollection<
-  Point,
-  BairroCenterProperties
->;
+export type BairroFeature = Feature<Point, BairroProperties>;
+export type BairroCollection = FeatureCollection<Point, BairroProperties>;
+
+export interface GeoDataState {
+  bairros: BairroCollection | null;
+  limite: LimiteFeature | null;
+  deslizamentos: DeslizamentoCollection | null;
+  inundacoes: InundacaoCollection | null;
+  loading: boolean;
+  error: string | null;
+}

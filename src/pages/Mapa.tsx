@@ -3,20 +3,27 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useGeoData } from "../hooks/useGeoData";
 import { addCityClip } from "../map/cityClip";
-import { getColor, SV_CENTER, SV_ZOOM, TILE_OPTIONS, TILE_URL } from "../map/config";
+import {
+  getColor,
+  SV_CENTER,
+  SV_ZOOM,
+  TILE_OPTIONS,
+  TILE_URL,
+} from "../map/config";
 import {
   distanceMeters,
   neighborhoodRiskPopupHtml,
   risksNearNeighborhood,
   styleFor,
 } from "../map/geoUtils";
-import type { RiskFeature } from "../map/types";
+import type { InundacaoFeature } from "../map/types";
 
 const BAIRRO_RISK_RADIUS_METERS = 200;
 const DESLIZAMENTO_AREA_RADIUS_METERS = 70;
 
 const bairroMarkerIcon = new L.Icon({
-  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -32,10 +39,18 @@ export function Mapa() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
-  const { riscos, limite, deslizamentos, bairroCenters, loading, error } = useGeoData();
+  const { bairros, limite, deslizamentos, inundacoes, loading, error } =
+    useGeoData();
 
   useEffect(() => {
-    if (!limite || !riscos || !deslizamentos || !bairroCenters || !containerRef.current || mapRef.current) {
+    if (
+      !limite ||
+      !inundacoes ||
+      !deslizamentos ||
+      !bairros ||
+      !containerRef.current ||
+      mapRef.current
+    ) {
       return;
     }
 
@@ -57,13 +72,16 @@ export function Mapa() {
     map.setMaxBounds(cityBounds.pad(0.2));
     map.fitBounds(cityBounds, { padding: [20, 20] });
 
-    riscos.features.forEach((feature) => {
+    inundacoes.features.forEach((feature) => {
       const layer = L.geoJSON(feature, {
         style: styleFor,
         onEachFeature: (_feature, leafletLayer) => {
           leafletLayer.on({
             mouseover: (event) =>
-              (event.target as L.Path).setStyle({ weight: 3, fillOpacity: 0.65 }),
+              (event.target as L.Path).setStyle({
+                weight: 3,
+                fillOpacity: 0.65,
+              }),
             mouseout: (event) => layer.resetStyle(event.target as L.Path),
           });
         },
@@ -77,35 +95,45 @@ export function Mapa() {
       const [lng, lat] = coordinates;
       L.circle([lat, lng], {
         radius: DESLIZAMENTO_AREA_RADIUS_METERS,
-        color: getColor("Deslizamento", "Alto"),
+        color: getColor("Alto"),
         weight: 2,
         opacity: 0.95,
-        fillColor: getColor("Deslizamento", "Alto"),
+        fillColor: getColor("Alto"),
         fillOpacity: 0.55,
         interactive: false,
       }).addTo(map);
     });
 
-    bairroCenters.features.forEach((feature) => {
+    bairros.features.forEach((feature) => {
       const coordinates = feature.geometry?.coordinates;
       const name = feature.properties?.name?.trim();
       if (!coordinates || coordinates.length < 2 || !name) return;
 
-      const nearbyRisks: RiskFeature[] = risksNearNeighborhood(feature, riscos, BAIRRO_RISK_RADIUS_METERS);
-      const hasNearbyDeslizamento = deslizamentos.features.some((deslizamento) => {
-        const point = deslizamento.geometry?.coordinates;
-        return Boolean(
-          point &&
+      const nearbyRisks: InundacaoFeature[] = risksNearNeighborhood(
+        feature,
+        inundacoes,
+        BAIRRO_RISK_RADIUS_METERS,
+      );
+      const hasNearbyDeslizamento = deslizamentos.features.some(
+        (deslizamento) => {
+          const point = deslizamento.geometry?.coordinates;
+          return Boolean(
+            point &&
             point.length >= 2 &&
             distanceMeters(coordinates, point) <=
               BAIRRO_RISK_RADIUS_METERS + DESLIZAMENTO_AREA_RADIUS_METERS,
-        );
-      });
+          );
+        },
+      );
 
       if (hasNearbyDeslizamento) {
         nearbyRisks.push({
           type: "Feature",
-          properties: { tipo: "Deslizamento", bairro: name, nivel: "Alto", descricao: "", fonte: "deslizamento.geojson", data: "" },
+          properties: {
+            bairro: name,
+            nivel: "Alto",
+            fonte: "riscos-deslizamento.geojson",
+          },
           geometry: { type: "Polygon", coordinates: [] },
         });
       }
@@ -114,7 +142,10 @@ export function Mapa() {
       const marker = L.marker([lat, lng], { icon: bairroMarkerIcon })
         .bindPopup(neighborhoodRiskPopupHtml(feature, nearbyRisks))
         .addTo(map);
-      neighborhoodMarkersRef.current.set(name.toLocaleLowerCase("pt-BR"), marker);
+      neighborhoodMarkersRef.current.set(
+        name.toLocaleLowerCase("pt-BR"),
+        marker,
+      );
     });
 
     return () => {
@@ -123,7 +154,7 @@ export function Mapa() {
       map.remove();
       mapRef.current = null;
     };
-  }, [bairroCenters, deslizamentos, limite, riscos]);
+  }, [bairros, deslizamentos, limite, inundacoes]);
 
   async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -132,9 +163,13 @@ export function Mapa() {
     if (!query || !map) return;
 
     setSearchError(null);
-    const localMarker = neighborhoodMarkersRef.current.get(query.toLocaleLowerCase("pt-BR"));
+    const localMarker = neighborhoodMarkersRef.current.get(
+      query.toLocaleLowerCase("pt-BR"),
+    );
     if (localMarker) {
-      map.setView(localMarker.getLatLng(), Math.max(map.getZoom(), 15), { animate: true });
+      map.setView(localMarker.getLatLng(), Math.max(map.getZoom(), 15), {
+        animate: true,
+      });
       localMarker.openPopup();
       return;
     }
@@ -146,10 +181,16 @@ export function Mapa() {
       url.searchParams.set("format", "jsonv2");
       url.searchParams.set("limit", "1");
       url.searchParams.set("countrycodes", "br");
-      const response = await fetch(url.toString(), { headers: { Accept: "application/json" } });
-      if (!response.ok) throw new Error(`Busca falhou: HTTP ${response.status}`);
+      const response = await fetch(url.toString(), {
+        headers: { Accept: "application/json" },
+      });
+      if (!response.ok)
+        throw new Error(`Busca falhou: HTTP ${response.status}`);
 
-      const results = (await response.json()) as Array<{ lat: string; lon: string }>;
+      const results = (await response.json()) as Array<{
+        lat: string;
+        lon: string;
+      }>;
       if (!results.length) {
         setSearchError("Nenhum resultado encontrado.");
         return;
@@ -160,9 +201,17 @@ export function Mapa() {
       map.setView([lat, lng], Math.max(map.getZoom(), 16), { animate: true });
       searchMarkerRef.current?.remove();
       searchMarkerRef.current = L.marker([lat, lng]).addTo(map);
-      searchMarkerRef.current.bindPopup(`<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${query}</h3></div>`).openPopup();
+      searchMarkerRef.current
+        .bindPopup(
+          `<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${query}</h3></div>`,
+        )
+        .openPopup();
     } catch (searchFailure) {
-      setSearchError(searchFailure instanceof Error ? searchFailure.message : "Busca indisponível.");
+      setSearchError(
+        searchFailure instanceof Error
+          ? searchFailure.message
+          : "Busca indisponível.",
+      );
     } finally {
       setSearching(false);
     }
@@ -172,9 +221,24 @@ export function Mapa() {
     <div className="map-panel" aria-label="Mapa de riscos">
       <div className="map-toolbar">
         <form className="map-search" onSubmit={handleSearch}>
-          <label className="sr-only" htmlFor="map-search-input">Buscar bairro ou rua</label>
-          <input id="map-search-input" type="text" placeholder="Buscar bairro ou rua..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} />
-          <button type="submit" className="map-search__button" aria-label="Buscar no mapa" disabled={searching}>⌕</button>
+          <label className="sr-only" htmlFor="map-search-input">
+            Buscar bairro ou rua
+          </label>
+          <input
+            id="map-search-input"
+            type="text"
+            placeholder="Buscar bairro ou rua..."
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+          />
+          <button
+            type="submit"
+            className="map-search__button"
+            aria-label="Buscar no mapa"
+            disabled={searching}
+          >
+            ⌕
+          </button>
         </form>
         {searchError && <p className="map-search__error">{searchError}</p>}
       </div>
@@ -183,16 +247,21 @@ export function Mapa() {
         <div ref={containerRef} className="map" />
         <aside className="map-legend-card" aria-label="Níveis de enchente">
           <ul className="map-legend-list">
-            {(["Baixo", "Médio", "Alto", "Muito Alto"] as const).map((nivel) => (
+            {(["Baixo", "Médio", "Alto"] as const).map((nivel) => (
               <li className="map-legend-list__item" key={nivel}>
-                <span className="map-legend-list__swatch" style={{ backgroundColor: getColor("Enchente", nivel) }} />
-                {nivel === "Muito Alto" ? "Muito alto" : nivel}
+                <span
+                  className="map-legend-list__swatch"
+                  style={{ backgroundColor: getColor(nivel) }}
+                />
+                {nivel}
               </li>
             ))}
           </ul>
         </aside>
         {loading && <div className="map-status">Carregando dados…</div>}
-        {error && <div className="map-status map-status--err">Erro: {error}</div>}
+        {error && (
+          <div className="map-status map-status--err">Erro: {error}</div>
+        )}
       </div>
     </div>
   );

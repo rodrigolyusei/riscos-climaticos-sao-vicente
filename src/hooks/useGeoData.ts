@@ -1,32 +1,27 @@
 import { useEffect, useState } from "react";
-import {
-  loadBairroCenters,
-  loadDeslizamentos,
-  loadLimite,
-  loadRiscos,
-} from "../data/loadGeoJSON";
+
 import type {
-  BairroCenterCollection,
-  DeslizamentoPointCollection,
+  BairroCollection,
+  DeslizamentoCollection,
+  GeoDataState,
   LimiteFeature,
-  RiskCollection,
+  InundacaoCollection,
 } from "../map/types";
 
-interface GeoDataState {
-  riscos: RiskCollection | null;
-  limite: LimiteFeature | null;
-  deslizamentos: DeslizamentoPointCollection | null;
-  bairroCenters: BairroCenterCollection | null;
-  loading: boolean;
-  error: string | null;
+const BASE = import.meta.env.BASE_URL;
+
+async function loadJson<T>(filename: string): Promise<T> {
+  const response = await fetch(`${BASE}data/${filename}`);
+  if (!response.ok) throw new Error(`${filename}: HTTP ${response.status}`);
+  return (await response.json()) as T;
 }
 
-export function useGeoData(): GeoDataState {
+export function useGeoData() {
   const [state, setState] = useState<GeoDataState>({
-    riscos: null,
+    bairros: null,
     limite: null,
     deslizamentos: null,
-    bairroCenters: null,
+    inundacoes: null,
     loading: true,
     error: null,
   });
@@ -34,14 +29,19 @@ export function useGeoData(): GeoDataState {
   useEffect(() => {
     let cancelled = false;
 
-    Promise.all([loadRiscos(), loadLimite(), loadDeslizamentos(), loadBairroCenters()])
-      .then(([riscos, limite, deslizamentos, bairroCenters]) => {
+    Promise.all([
+      loadJson<BairroCollection>("bairros.geojson"),
+      loadJson<LimiteFeature>("limite-sao-vicente.geojson"),
+      loadJson<DeslizamentoCollection>("riscos-deslizamento.geojson"),
+      loadJson<InundacaoCollection>("riscos-inundacao.geojson"),
+    ])
+      .then(([bairros, limite, deslizamentos, inundacoes]) => {
         if (!cancelled) {
           setState({
-            riscos,
+            bairros,
             limite,
             deslizamentos,
-            bairroCenters,
+            inundacoes,
             loading: false,
             error: null,
           });
