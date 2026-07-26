@@ -1,7 +1,17 @@
 import type { Feature, Position } from "geojson";
 import type { PathOptions } from "leaflet";
 import { getColor } from "./config";
-import type { BairroFeature, Nivel, InundacaoProperties, Risk } from "./types";
+import type {
+  BairroFeature,
+  Nivel,
+  InundacaoProperties,
+  Risk,
+  InundacaoCollection,
+  DeslizamentoCollection,
+} from "./types";
+
+const BAIRRO_RISK_RADIUS_METERS = 200;
+export const DESLIZAMENTO_AREA_RADIUS_METERS = 70;
 
 const NIVEL: Record<Nivel, number> = {
   Baixo: 1,
@@ -107,11 +117,60 @@ export function polygonWithinRadius(
   );
 }
 
+export function findNearbyRisks(
+  coordinates: Position,
+  inundacoes: InundacaoCollection,
+  deslizamentos: DeslizamentoCollection,
+) {
+  const nearbyRisks: Risk[] = [];
+
+  inundacoes.features
+    .filter((inundacao) =>
+      inundacao.geometry.type === "Polygon"
+        ? polygonWithinRadius(
+            coordinates,
+            inundacao.geometry.coordinates,
+            BAIRRO_RISK_RADIUS_METERS,
+          )
+        : inundacao.geometry.coordinates.some((polygon) =>
+            polygonWithinRadius(
+              coordinates,
+              polygon,
+              BAIRRO_RISK_RADIUS_METERS,
+            ),
+          ),
+    )
+    .forEach((inundacao) => {
+      nearbyRisks.push({
+        tipo: "Inundação",
+        nivel: inundacao.properties.nivel,
+      });
+    });
+
+  const hasNearbyDeslizamento = deslizamentos.features.some((deslizamento) => {
+    const point = deslizamento.geometry?.coordinates;
+    return Boolean(
+      point &&
+      point.length >= 2 &&
+      distanceMeters(coordinates, point) <=
+        BAIRRO_RISK_RADIUS_METERS + DESLIZAMENTO_AREA_RADIUS_METERS,
+    );
+  });
+
+  if (hasNearbyDeslizamento) {
+    nearbyRisks.push({
+      tipo: "Deslizamento",
+      nivel: "Alto",
+    });
+  }
+
+  return nearbyRisks;
+}
+
 export function neighborhoodRiskPopupHtml(
-  centerFeature: BairroFeature,
+  name: string,
   nearbyRisks: Risk[],
 ): string {
-  const name = centerFeature.properties.name;
   if (!nearbyRisks.length) {
     return `<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${name}</h3><ul class="popup-risk-list"><li class="popup-risk-list__item"><span>Sem risco identificado</span></li></ul></div>`;
   }

@@ -11,15 +11,11 @@ import {
   TILE_URL,
 } from "../map/config";
 import {
-  distanceMeters,
+  DESLIZAMENTO_AREA_RADIUS_METERS,
+  findNearbyRisks,
   neighborhoodRiskPopupHtml,
-  polygonWithinRadius,
   styleFor,
 } from "../map/geoUtils";
-import type { Risk } from "../map/types";
-
-const BAIRRO_RISK_RADIUS_METERS = 200;
-const DESLIZAMENTO_AREA_RADIUS_METERS = 70;
 
 const bairroMarkerIcon = new L.Icon({
   iconUrl:
@@ -36,9 +32,11 @@ export function Mapa() {
   const mapRef = useRef<L.Map | null>(null);
   const neighborhoodMarkersRef = useRef<Map<string, L.Marker>>(new Map());
   const searchMarkerRef = useRef<L.Marker | null>(null);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searching, setSearching] = useState(false);
+
   const { bairros, limite, deslizamentos, inundacoes, loading, error } =
     useGeoData();
 
@@ -63,6 +61,7 @@ export function Mapa() {
       zoomAnimation: true,
       inertia: true,
     });
+
     mapRef.current = map;
     L.control.zoom({ position: "topright" }).addTo(map);
     L.control.attribution({ position: "bottomleft" }).addTo(map);
@@ -109,49 +108,17 @@ export function Mapa() {
       const name = bairro.properties?.name?.trim();
       if (!coordinates || coordinates.length < 2 || !name) return;
 
-      const nearbyRisks: Risk[] = inundacoes.features
-        .filter((inundacao) =>
-          inundacao.geometry.type === "Polygon"
-            ? polygonWithinRadius(
-                bairro.geometry.coordinates,
-                inundacao.geometry.coordinates,
-                BAIRRO_RISK_RADIUS_METERS,
-              )
-            : inundacao.geometry.coordinates.some((polygon) =>
-                polygonWithinRadius(
-                  bairro.geometry.coordinates,
-                  polygon,
-                  BAIRRO_RISK_RADIUS_METERS,
-                ),
-              ),
-        )
-        .map((inundacao) => ({
-          tipo: "Inundação",
-          nivel: inundacao.properties.nivel,
-        }));
-
-      const hasNearbyDeslizamento = deslizamentos.features.some(
-        (deslizamento) => {
-          const point = deslizamento.geometry?.coordinates;
-          return Boolean(
-            point &&
-            point.length >= 2 &&
-            distanceMeters(coordinates, point) <=
-              BAIRRO_RISK_RADIUS_METERS + DESLIZAMENTO_AREA_RADIUS_METERS,
-          );
-        },
+      const nearbyRisks = findNearbyRisks(
+        coordinates,
+        inundacoes,
+        deslizamentos,
       );
-
-      if (hasNearbyDeslizamento) {
-        nearbyRisks.push({
-          tipo: "Deslizamento",
-          nivel: "Alto",
-        });
-      }
 
       const [lng, lat] = coordinates;
       const marker = L.marker([lat, lng], { icon: bairroMarkerIcon })
-        .bindPopup(neighborhoodRiskPopupHtml(bairro, nearbyRisks))
+        .bindPopup(
+          neighborhoodRiskPopupHtml(bairro.properties.name, nearbyRisks),
+        )
         .addTo(map);
       neighborhoodMarkersRef.current.set(
         name.toLocaleLowerCase("pt-BR"),
@@ -168,6 +135,10 @@ export function Mapa() {
   }, [bairros, deslizamentos, limite, inundacoes]);
 
   async function handleSearch(event: React.SubmitEvent) {
+    if (!deslizamentos || !inundacoes) {
+      return;
+    }
+
     event.preventDefault();
     const query = searchQuery.trim();
     const map = mapRef.current;
@@ -201,6 +172,7 @@ export function Mapa() {
       const results = (await response.json()) as Array<{
         lat: string;
         lon: string;
+        name: string;
       }>;
       if (!results.length) {
         setSearchError("Nenhum resultado encontrado.");
@@ -209,13 +181,18 @@ export function Mapa() {
 
       const lat = Number(results[0].lat);
       const lng = Number(results[0].lon);
+
+      const nearbyRisks = findNearbyRisks(
+        [lng, lat],
+        inundacoes,
+        deslizamentos,
+      );
+
       map.setView([lat, lng], Math.max(map.getZoom(), 16), { animate: true });
       searchMarkerRef.current?.remove();
       searchMarkerRef.current = L.marker([lat, lng]).addTo(map);
       searchMarkerRef.current
-        .bindPopup(
-          `<div class="popup-risco popup-risco--point"><h3 class="popup-bairro">${query}</h3></div>`,
-        )
+        .bindPopup(neighborhoodRiskPopupHtml(results[0].name, nearbyRisks))
         .openPopup();
     } catch (searchFailure) {
       setSearchError(
