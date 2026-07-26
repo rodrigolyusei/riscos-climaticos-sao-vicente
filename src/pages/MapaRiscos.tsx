@@ -27,7 +27,7 @@ const bairroMarkerIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-export function Mapa() {
+export function MapaRiscos() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
   const neighborhoodMarkersRef = useRef<Map<string, L.Marker>>(new Map());

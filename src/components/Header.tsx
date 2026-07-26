@@ -8,7 +8,7 @@ export function Header() {
           className="brand__logo"
         />
         <div>
-          <p className="brand__eyebrow">Observatório de Justiça Climática</p>
+          <p className="eyebrow">Observatório de Justiça Climática</p>
           <h1>Radar Cidadão</h1>
         </div>
       </div>

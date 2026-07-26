@@ -29,10 +29,10 @@ const eventos = [
   },
 ];
 
-export function LinhaDoTempo() {
+export function HistoricoDesastres() {
   return (
     <div className="timeline-wrapper">
-      <p className="brand__eyebrow">Linha do tempo</p>
+      <p className="eyebrow">Linha do tempo</p>
       <h2>Marcos históricos</h2>
 
       <div className="timeline-scroll">

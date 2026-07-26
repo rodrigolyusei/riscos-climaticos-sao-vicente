@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
   --bg: #f9f3f0;
-  --panel: rgba(249, 243, 240, 0.92);
+  --panel: rgba(249, 243, 240, 0.9);
   --line: rgba(26, 30, 44, 0.1);
   --text: #1a1e2c;
   --muted: #5a5f72;
@@ -31,7 +31,14 @@ body {
       transparent 25%
     ),
     linear-gradient(180deg, #f9f3f0 0%, #f0ebe7 100%);
-  color: var(--text);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* ── HEADER ─────────────────────────────────────── */
@@ -43,10 +50,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
   padding: 0.85rem 1.5rem;
   border-bottom: 1px solid var(--line);
-  background: rgba(249, 243, 240, 0.88);
+  background: var(--panel);
   backdrop-filter: blur(14px);
 }
 
@@ -62,33 +68,18 @@ body {
   height: 2.5rem;
 }
 
-.brand__eyebrow {
-  margin: 0 0 0.1rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .brand h1 {
   margin: 0;
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  line-height: 1.1;
+  font-size: 1.4rem;
   color: var(--green);
 }
 
 .site-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 2rem;
 }
 
 .site-nav a {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 0.55rem 0.9rem;
   color: var(--text);
   text-decoration: none;
   font-size: 0.88rem;
@@ -106,7 +97,7 @@ body {
 
 /* ── SECTIONS ───────────────────────────────────── */
 
-.scroll-container {
+.main {
   display: flex;
   flex-direction: column;
 }
@@ -114,201 +105,13 @@ body {
 .section {
   padding: clamp(1.5rem, 3vw, 3rem);
   display: flex;
-  flex-direction: column;
 }
 
-/* ── MAP CARD ───────────────────────────────────── */
+/* ──── MAPA ─────────────────────────────────────── */
 
 #mapa {
   height: 80vh;
 }
-
-.map-card {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  border-radius: 1.25rem;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  background: #e8e3df;
-}
-
-#map {
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  background: #e8e3df;
-}
-
-.searchbar {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  width: min(26rem, calc(100vw - 5rem));
-}
-
-.searchbar input {
-  width: 100%;
-  min-width: 0;
-  border: 1px solid rgba(26, 30, 44, 0.2);
-  border-radius: 999px;
-  padding: 0.75rem 1rem;
-  background: var(--bg);
-  color: var(--text);
-  outline: none;
-  font-size: 0.9rem;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.searchbar input::placeholder {
-  color: #8a8f9e;
-}
-
-.searchbar input:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(0, 122, 74, 0.15);
-}
-
-.searchbar button {
-  border: 0;
-  border-radius: 999px;
-  padding: 0.78rem 1.1rem;
-  background: var(--green);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.9rem;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-/* ── LEGEND ─────────────────────────────────────── */
-
-.legend-card,
-.status-pill {
-  position: absolute;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
-}
-
-.legend-card {
-  right: 1rem;
-  bottom: 2rem;
-  width: min(20rem, calc(100vw - 5rem));
-  padding: 0.9rem 1rem 0.8rem;
-  border-radius: 1rem;
-  background: rgba(249, 243, 240, 0.92);
-}
-
-.legend-card h2 {
-  margin: 0 0 0.6rem;
-  font-size: 0.95rem;
-}
-
-.legend-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.7rem;
-  display: grid;
-  gap: 0.45rem;
-}
-
-.legend-card li {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.legend-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
-}
-
-.legend-swatch {
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: 50%;
-  border: 1px solid rgba(26, 30, 44, 0.15);
-}
-
-.legend-swatch--muito-alto {
-  background: var(--red);
-}
-.legend-swatch--alto {
-  background: var(--orange);
-}
-.legend-swatch--medio {
-  background: var(--blue);
-}
-.legend-swatch--baixo {
-  background: var(--green);
-}
-
-.status-pill {
-  left: 1rem;
-  bottom: 1rem;
-  padding: 0.65rem 0.9rem;
-  border-radius: 999px;
-  background: rgba(249, 243, 240, 0.92);
-  color: var(--text);
-  font-size: 0.85rem;
-  max-width: calc(100vw - 5rem);
-}
-
-/* ── ACCESSIBILITY ──────────────────────────────── */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ── LEAFLET OVERRIDES ──────────────────────────── */
-
-.leaflet-container {
-  font-family: inherit;
-}
-
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-  background: #ffffff;
-  color: var(--text);
-}
-
-.leaflet-popup-content {
-  margin: 0.85rem 1rem;
-}
-
-.popup-title {
-  margin: 0 0 0.4rem;
-  font-weight: 800;
-}
-
-.popup-row {
-  margin: 0.25rem 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
-/* ── MAPA DE RISCOS ────────────────────────────── */
 
 .map-panel {
   position: relative;
@@ -348,8 +151,7 @@ body {
 .map-search {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  width: min(26rem, calc(100vw - 5rem));
+  width: min(26rem, calc(100vw - 10rem));
   border: 1px solid rgba(26, 30, 44, 0.2);
   border-radius: 999px;
   padding: 0.15rem 0.25rem 0.15rem 1rem;
@@ -369,7 +171,7 @@ body {
 .map-search__button {
   border: 0;
   border-radius: 999px;
-  padding: 0.58rem 0.85rem;
+  padding: 0.5rem 0.85rem;
   background: var(--green);
   color: #fff;
   cursor: pointer;
@@ -382,12 +184,12 @@ body {
 }
 
 .map-search__error {
-  margin: 0.5rem 0 0;
-  border-radius: 0.5rem;
+  width: min(26rem, calc(100vw - 10rem));
+  border-radius: 5rem;
   padding: 0.4rem 0.6rem;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--bg);
   color: #b91c1c;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .map-legend-card {
@@ -395,12 +197,11 @@ body {
   right: 1rem;
   bottom: 1rem;
   z-index: 500;
-  width: min(13rem, calc(100vw - 5rem));
+  width: min(13rem, calc(100vw - 10rem));
   border: 1px solid var(--line);
   border-radius: 1rem;
-  padding: 0.8rem 1rem;
-  box-shadow: var(--shadow);
-  background: rgba(249, 243, 240, 0.92);
+  padding: 1rem;
+  background: var(--panel);
   backdrop-filter: blur(14px);
 }
 
@@ -478,6 +279,67 @@ body {
   font-family: inherit;
 }
 
+/* ── LEGEND ─────────────────────────────────────── */
+
+.legend-card,
+.status-pill {
+  position: absolute;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.legend-card {
+  right: 1rem;
+  bottom: 2rem;
+  width: min(20rem, calc(100vw - 5rem));
+  padding: 0.9rem 1rem 0.8rem;
+  border-radius: 1rem;
+  background: rgba(249, 243, 240, 0.92);
+}
+
+.legend-card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+}
+
+.legend-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.7rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.legend-card li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.legend-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+/* ── ACCESSIBILITY ──────────────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── AÇÕES DA DEFESA CIVIL / CAROUSEL ─────────────── */
 
 .acoes-wrapper {
@@ -520,8 +382,7 @@ body {
   padding: 1.5rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
-  background: var(--panel);
-  box-shadow: var(--shadow);
+  background: var(--bg);
   backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
@@ -578,7 +439,7 @@ body {
   height: 2.75rem;
   border: 1px solid var(--line);
   border-radius: 50%;
-  background: var(--panel);
+  background: var(--bg);
   color: var(--text);
   font-size: 1rem;
   cursor: pointer;
@@ -664,7 +525,7 @@ body {
   padding: 1rem 1.1rem;
   border: 1px solid var(--line);
   border-radius: 0.9rem;
-  background: var(--panel);
+  background: var(--bg);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
   margin: 0 1.5rem;

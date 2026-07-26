@@ -48,7 +48,7 @@ export function AcoesDefesaCivil() {
 
   return (
     <div className="acoes-wrapper">
-      <p className="brand__eyebrow">Notícias e iniciativas</p>
+      <p className="eyebrow">Notícias e iniciativas</p>
       <h2>Ações da Defesa Civil</h2>
 
       <div className="carousel">
