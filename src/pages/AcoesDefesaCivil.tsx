@@ -2,6 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 const acoes = [
   {
+    category: "Recomendação",
+    date: "16 de julho de 2026",
+    title: "Reforça preparação para o El Niño com obras de contenção",
+    description:
+      "Município amplia ações para reduzir impactos das chuvas, fortalecer a Defesa Civil e garantir mais segurança à população.",
+    url: "https://www.saovicente.sp.gov.br/informacao/sao-vicente-reforca-preparacao-para-o-el-nino-com-obras-de-drenagem-investimentos-e-plano-preventivo",
+  },
+  {
     category: "Visita técnica",
     date: "12 de abril de 2026",
     title: "Defensoria realiza visita técnica ao morro do Catiapoã",
