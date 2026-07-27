@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Header } from "./components/Header";
 import { AcoesDefesaCivil } from "./pages/AcoesDefesaCivil";
+import { Contatos } from "./pages/Contatos";
 import { HistoricoDesastres } from "./pages/HistoricoDesastres";
 import { MapaRiscos } from "./pages/MapaRiscos";
 import { Notificacoes } from "./pages/Notificacoes";
@@ -22,6 +23,9 @@ createRoot(document.getElementById("root")!).render(
       </div>
       <div id="timeline" className="section">
         <HistoricoDesastres />
+      </div>
+      <div id="contatos" className="section">
+        <Contatos />
       </div>
     </main>
   </StrictMode>,

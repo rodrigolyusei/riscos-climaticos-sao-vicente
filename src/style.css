@@ -806,6 +806,75 @@ body {
   font-weight: 600;
 }
 
+/* ── CONTATOS DE EMERGÊNCIA ──────────────────────── */
+
+.contatos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.25rem;
+  width: min(80rem, 100%);
+}
+
+.contato-card {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--bg);
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.contato-card__name {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.contato-card__number {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.contato-card__schedule {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.contato-card__clock {
+  flex-shrink: 0;
+}
+
+.contato-card__desc {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.contato-card__link {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.contato-card__link:hover {
+  text-decoration: underline;
+}
+
 /* ── MOBILE ─────────────────────────────────────── */
 
 @media (max-width: 780px) {

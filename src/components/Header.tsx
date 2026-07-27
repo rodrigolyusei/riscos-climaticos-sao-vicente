@@ -17,6 +17,7 @@ export function Header() {
         <a href="#mapa">Mapa</a>
         <a href="#acoes">Ações</a>
         <a href="#timeline">Histórico</a>
+        <a href="#contatos">Contatos</a>
       </nav>
     </header>
   );
