@@ -58,7 +58,7 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Conjunto Habitacional São Vicente \"H\"",
+        "name": "Conjunto Habitacional São Vicente",
         "source": null,
         "origin_id": "way/845226314",
         "generated_from": "polygon_centroid"

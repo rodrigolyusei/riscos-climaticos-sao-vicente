@@ -33,7 +33,7 @@ export function HistoricoDesastres() {
   return (
     <div className="section-wrapper">
       <p className="eyebrow">Linha do tempo</p>
-      <h2>Marcos históricos</h2>
+      <h2>Históricos de Desastres</h2>
 
       <div className="timeline-scroll">
         <div className="timeline">

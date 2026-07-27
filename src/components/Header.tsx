@@ -13,9 +13,10 @@ export function Header() {
         </div>
       </div>
       <nav className="site-nav" aria-label="Seções do site">
+        <a href="#notificacoes">Notificações</a>
         <a href="#mapa">Mapa</a>
         <a href="#acoes">Ações</a>
-        <a href="#timeline">Conheça o histórico</a>
+        <a href="#timeline">Histórico</a>
       </nav>
     </header>
   );

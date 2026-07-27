@@ -33,6 +33,18 @@ body {
     linear-gradient(180deg, #f9f3f0 0%, #f0ebe7 100%);
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
 .eyebrow {
   margin: 0;
   font-size: 0.7rem;
@@ -96,11 +108,6 @@ body {
 }
 
 /* ── SECTIONS ───────────────────────────────────── */
-
-.main {
-  display: flex;
-  flex-direction: column;
-}
 
 .section {
   padding: 2rem;
@@ -279,6 +286,33 @@ body {
 
 #mapa {
   height: 80vh;
+}
+
+.map-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.map-wrapper h2 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: var(--orange);
+}
+
+.map-card {
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--bg);
+}
+
+.map-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--muted);
 }
 
 .map-panel {

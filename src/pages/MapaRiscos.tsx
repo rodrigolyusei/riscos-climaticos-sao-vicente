@@ -1,7 +1,5 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "./map-legend.css";
-import "./map-popup.css";
 import { useEffect, useRef, useState } from "react";
 import { useGeoData } from "../hooks/useGeoData";
 import { addCityClip } from "../map/cityClip";
@@ -18,6 +16,8 @@ import {
   neighborhoodRiskPopupHtml,
   styleFor,
 } from "../map/geoUtils";
+import "./map-legend.css";
+import "./map-popup.css";
 
 const bairroMarkerIcon = new L.Icon({
   iconUrl:
@@ -249,73 +249,84 @@ export function MapaRiscos() {
   }
 
   return (
-    <div className="map-panel" aria-label="Mapa de riscos">
-      <div className="map-toolbar">
-        <form className="map-search" onSubmit={handleSearch}>
-          <label className="sr-only" htmlFor="map-search-input">
-            Buscar bairro ou rua
-          </label>
-          <input
-            id="map-search-input"
-            type="text"
-            placeholder="Buscar bairro ou rua..."
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-          />
-          <button
-            type="submit"
-            className="map-search__button"
-            aria-label="Buscar no mapa"
-            disabled={searching}
-          >
-            ⌕
-          </button>
-        </form>
-        {searchError && <p className="map-search__error">{searchError}</p>}
+    <div className="map-wrapper">
+      <h2>Mapa de Riscos Climáticos</h2>
+      <div className="map-card">
+        <p>
+          <b>Risco climático</b> indica uma possível ocorrência de desastres
+          naturais. O mapa abaixo mostra os bairros de São Vicente e os riscos
+          de enchentes e deslizamentos.
+        </p>
       </div>
+      <div className="map-panel" aria-label="Mapa de riscos">
+        <div className="map-toolbar">
+          <form className="map-search" onSubmit={handleSearch}>
+            <label className="sr-only" htmlFor="map-search-input">
+              Buscar bairro ou rua
+            </label>
+            <input
+              id="map-search-input"
+              type="text"
+              placeholder="Buscar bairro ou rua..."
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+            <button
+              type="submit"
+              className="map-search__button"
+              aria-label="Buscar no mapa"
+              disabled={searching}
+            >
+              ⌕
+            </button>
+          </form>
+          {searchError && <p className="map-search__error">{searchError}</p>}
+        </div>
 
-      <div className="map-wrap">
-        <div ref={containerRef} className="map" />
-        <aside className="map-legend-card" aria-label="Camadas de risco">
-          <label className="map-legend-toggle">
-            <input
-              type="checkbox"
-              checked={showInundacao}
-              onChange={(event) => setShowInundacao(event.target.checked)}
-            />
-            Inundação
-          </label>
-          {showInundacao && (
-            <ul className="map-legend-list">
-              {(["Baixo", "Médio", "Alto"] as const).map((nivel) => (
-                <li className="map-legend-list__item" key={nivel}>
-                  <span
-                    className="map-legend-list__swatch"
-                    style={{ backgroundColor: getColor(nivel) }}
-                  />
-                  {nivel}
-                </li>
-              ))}
-            </ul>
+        <div className="map-wrap">
+          <div ref={containerRef} className="map" />
+          <aside className="map-legend-card" aria-label="Camadas de risco">
+            <label className="map-legend-toggle">
+              <input
+                type="checkbox"
+                checked={showInundacao}
+                onChange={(event) => setShowInundacao(event.target.checked)}
+              />
+              Inundação
+            </label>
+            {showInundacao && (
+              <ul className="map-legend-list">
+                {(["Baixo", "Médio", "Alto"] as const).map((nivel) => (
+                  <li className="map-legend-list__item" key={nivel}>
+                    <span
+                      className="map-legend-list__swatch"
+                      style={{ backgroundColor: getColor(nivel) }}
+                    />
+                    {nivel}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <label className="map-legend-toggle">
+              <input
+                type="checkbox"
+                checked={showDeslizamento}
+                onChange={(event) => setShowDeslizamento(event.target.checked)}
+              />
+              {showDeslizamento && (
+                <span
+                  className="map-legend-list__swatch"
+                  style={{ backgroundColor: "#fa003f" }}
+                />
+              )}
+              Deslizamento
+            </label>
+          </aside>
+          {loading && <div className="map-status">Carregando dados…</div>}
+          {error && (
+            <div className="map-status map-status--err">Erro: {error}</div>
           )}
-          <label className="map-legend-toggle">
-            <input
-              type="checkbox"
-              checked={showDeslizamento}
-              onChange={(event) => setShowDeslizamento(event.target.checked)}
-            />
-            {showDeslizamento &&
-            <span
-              className="map-legend-list__swatch"
-              style={{ backgroundColor: "#fa003f" }}
-            />}
-            Deslizamento
-          </label>
-        </aside>
-        {loading && <div className="map-status">Carregando dados…</div>}
-        {error && (
-          <div className="map-status map-status--err">Erro: {error}</div>
-        )}
+        </div>
       </div>
     </div>
   );
