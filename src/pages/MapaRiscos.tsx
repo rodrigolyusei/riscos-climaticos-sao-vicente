@@ -16,8 +16,6 @@ import {
   neighborhoodRiskPopupHtml,
   styleFor,
 } from "../map/geoUtils";
-import "./map-legend.css";
-import "./map-popup.css";
 
 const bairroMarkerIcon = new L.Icon({
   iconUrl:
