@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const acoes = [
   {
@@ -37,13 +37,41 @@ const acoes = [
 
 export function AcoesDefesaCivil() {
   const [index, setIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(acoes.length);
+  const [slidePx, setSlidePx] = useState(0);
+  const viewportRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    function measure() {
+      const track = el!.querySelector<HTMLElement>(".carousel__track");
+      const card = track?.querySelector<HTMLElement>(".acao-card");
+      if (!track || !card) return;
+
+      const gap = parseFloat(getComputedStyle(track).gap) || 20;
+      const cardW = card.offsetWidth;
+      const vw = el!.clientWidth;
+
+      setSlidePx(cardW + gap);
+      setVisibleCount(Math.max(1, Math.floor((vw + gap) / (cardW + gap))));
+    }
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const maxIndex = Math.max(0, acoes.length - visibleCount);
 
   function prev() {
-    setIndex((i) => Math.max(0, i - 1));
+    setIndex((i) => Math.max(0, i - visibleCount));
   }
 
   function next() {
-    setIndex((i) => Math.min(acoes.length - 1, i + 1));
+    setIndex((i) => Math.min(maxIndex, i + visibleCount));
   }
 
   return (
@@ -61,11 +89,11 @@ export function AcoesDefesaCivil() {
           &#9664;
         </button>
 
-        <div className="carousel__viewport">
+        <div className="carousel__viewport" ref={viewportRef}>
           <div
             className="carousel__track"
             style={{
-              transform: `translateX(-${index * (100 / acoes.length)}%)`,
+              transform: `translateX(-${index * slidePx}px)`,
             }}
           >
             {acoes.map((acao) => (
@@ -85,7 +113,7 @@ export function AcoesDefesaCivil() {
         <button
           className="carousel__arrow carousel__arrow--right"
           onClick={next}
-          disabled={index === acoes.length - 3}
+          disabled={index >= maxIndex}
           aria-label="Próximo"
         >
           &#9654;
