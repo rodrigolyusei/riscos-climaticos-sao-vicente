@@ -64,12 +64,7 @@ export function Contatos() {
             </div>
             <p className="contato-card__desc">{contato.description}</p>
             {contato.url && (
-              <a
-                href={contato.url}
-                className="contato-card__link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={contato.url} className="contato-card__link">
                 Site
               </a>
             )}
